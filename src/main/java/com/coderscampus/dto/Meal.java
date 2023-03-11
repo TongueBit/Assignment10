@@ -1,4 +1,4 @@
-package com.coderscampus.Assignment10.Spoonacular.dto;
+package com.coderscampus.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

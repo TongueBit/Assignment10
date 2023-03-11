@@ -1,10 +1,10 @@
-package com.coderscampus.Assignment10.Spoonacular.dto;
+package com.coderscampus.dto;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SpoonacularDayResponse {
+public class DayResponse {
 
 	@JsonProperty("meals")
 	private List<Meal> mealPlan;

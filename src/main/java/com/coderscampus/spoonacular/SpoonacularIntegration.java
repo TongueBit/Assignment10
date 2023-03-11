@@ -1,4 +1,4 @@
-package com.coderscampus.Assignment10.Spoonacular;
+package com.coderscampus.spoonacular;
 
 import java.net.URI;
 
@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.coderscampus.Assignment10.Spoonacular.dto.SpoonacularDayResponse;
+import com.coderscampus.dto.DayResponse;
 
 
 
 public class SpoonacularIntegration {
 
 	@Test
-	public void apiCallDay() {
+	public ResponseEntity<DayResponse> apiCallDay() {
 		RestTemplate rt = new RestTemplate();
 		
 		URI uri = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
@@ -23,8 +23,9 @@ public class SpoonacularIntegration {
 				  					  .build()
 				  					  .toUri();
 		
-		ResponseEntity<SpoonacularDayResponse> response = rt.getForEntity(uri, SpoonacularDayResponse.class);
+		ResponseEntity<DayResponse> response = rt.getForEntity(uri, DayResponse.class);
 		//ResponseEntity<AlphaAdvantageResponse> response = rt.getForEntity(uri, AlphaAdvantageResponse.class);
 		System.out.println(response.getBody());
+		return response;
 	}
 }
