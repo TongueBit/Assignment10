@@ -10,7 +10,7 @@ public class DayResponse {
 	private List<Meal> mealPlan;
 	
 	private Nutrients nutrients;
-	
+
 	public List<Meal> getMealPlan() {
 		return mealPlan;
 	}

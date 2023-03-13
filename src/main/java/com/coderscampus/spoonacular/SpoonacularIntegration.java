@@ -8,23 +8,48 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.coderscampus.dto.DayResponse;
+import com.coderscampus.dto.WeekResponse;
+
+import io.micrometer.common.util.StringUtils;
 
 
 
 public class SpoonacularIntegration {
 
-	@Test
-	public ResponseEntity<DayResponse> apiCallDay() {
+	public ResponseEntity<DayResponse> apiCallDay(String numCalories, String diet, String exclusions) {
 		RestTemplate rt = new RestTemplate();
 		
-		URI uri = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
 				  					  .queryParam("timeFrame", "day")
-				  					  .queryParam("apiKey", "4d6a32fba1d242bbbdd38b13d5993328")
-				  					  .build()
-				  					  .toUri();
+				  					  .queryParam("apiKey", "4d6a32fba1d242bbbdd38b13d5993328");
+		if(!StringUtils.isEmpty(numCalories)) {
+			builder.queryParam("targetCalories", numCalories)
+				   .queryParam("diet", diet)
+				   .queryParam("exclusions", exclusions);
+		}
+				  					  
+		URI uri = builder.build().toUri();
 		
 		ResponseEntity<DayResponse> response = rt.getForEntity(uri, DayResponse.class);
-		//ResponseEntity<AlphaAdvantageResponse> response = rt.getForEntity(uri, AlphaAdvantageResponse.class);
+		System.out.println(response.getBody());
+		return response;
+	}
+	
+	public ResponseEntity<WeekResponse> apiCallWeek(String numCalories, String diet, String exclusions) {
+		RestTemplate rt = new RestTemplate();
+		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
+														   .queryParam("timeFrame", "week")
+														   .queryParam("apiKey", "4d6a32fba1d242bbbdd38b13d5993328");
+		if(!StringUtils.isEmpty(numCalories)) {
+			builder.queryParam("targetCalories", numCalories)
+			.queryParam("diet", diet)
+			.queryParam("exclusions", exclusions);
+		}
+
+		URI uri = builder.build().toUri();
+
+		ResponseEntity<WeekResponse> response = rt.getForEntity(uri, WeekResponse.class);
 		System.out.println(response.getBody());
 		return response;
 	}
